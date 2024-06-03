@@ -1,27 +1,18 @@
-'use client'
-import Image from "next/image";
-import React, { useState, useEffect } from 'react';
+"use client";
+import {  User2 } from "lucide-react";
+import React from "react";
+import { useTypewriter} from 'react-simple-typewriter';
+import Link from "next/link";
 
+export default function Home() { 
+  const [text] = useTypewriter({
+    words: ['Olá, bem vindo ao meu portifolio!'],
+    loop: 0
+  });
 
-export default function Home() {
-    const [text, setText] = useState('');
-    const fullText = `<>Bem vindo ao meu Portifolio></>`
-    const [index, setIndex] = useState(0);
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setText(fullText.slice(0, index + 1));
-        setIndex(index + 1);
-      }, 100);
-  
-      if (index === fullText.length) {
-        clearInterval(interval);
-      }
-  
-      return () => clearInterval(interval);
-    }, [index, fullText]);
   return (
     <main className="flex min-h-screen flex-col items-center relative">
+      
       <video
         autoPlay
         loop
@@ -31,18 +22,18 @@ export default function Home() {
         <source src="/video.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        
-    <h1 className="text-zinc-200 text-5xl font-bold">
-      {text}
-      <span className="blink">|</span>
-    </h1>
-        <p className="text-zinc-200 text-2xl mt-4">
-          This is a new paragraph element.
-        </p>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-          Click me
-        </button>
+        <div>
+          <span className="font-bold text-5xl text-zinc-200">{text}</span>
+        </div>
+        <div className="fixed bottom-64">
+        <Link  href='/portifolio'>
+          <User2 size={64} className="p-3 animate-bounce bg-zinc-200 rounded-full"/>
+        </Link>
+        </div>
       </div>
+      <audio autoPlay loop hidden >
+          <source src="music.mp3" type="audio/mpeg" />
+        </audio>
     </main>
   );
-  }
+}
